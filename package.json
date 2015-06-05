@@ -1,0 +1,23 @@
+{
+  "name": "pmev",
+  "version": "1.0.0",
+  "description": "Poor man's event viewer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/txchen/pmev.git"
+  },
+  "keywords": [
+    "event",
+    "viewer"
+  ],
+  "author": "Tianxiang Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/txchen/pmev/issues"
+  },
+  "homepage": "https://github.com/txchen/pmev#readme"
+}
