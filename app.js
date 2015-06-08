@@ -7,6 +7,7 @@ import events from './events'
 let app = express()
 app.use(logger('dev'))
 
+
 //app.use('/static', staticServer)
 
 // app.use('/api', (req, res) => {
@@ -22,5 +23,11 @@ app.use('/events', events)
 //
 // // mount userapi on /users
 // app.use('/users', users);
+
+// error handling, should be after normal middleware
+app.use(function(err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Internal Error')
+})
 
 export default app

@@ -1,6 +1,7 @@
 'use strict'
 
 import express from 'express'
+import wga from 'wga'
 import bodyParser from 'body-parser'
 import passportHttp from 'passport-http'
 import passport from 'passport'
@@ -29,15 +30,16 @@ let router = express.Router()
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
 
+// TODO: use same auth check for entire app, jwt or basic
 // basic auth to protect api
 router.use(passport.authenticate('basic', { session: false }))
 
 // TODO: pagination support
-router.get('/', (req, res) => {
-    res.json(eventStore.getAllEvents())
-  })
+router.get('/', wga(async (req, res) => {
+    res.json(await eventStore.getEvents())
+  }))
 
-router.post('/', (req, res) => {
+router.post('/', wga(async (req, res) => {
     // event - host:string, message:string, msgType:string, other attributes
     let message = req.body
     if (!message.hasOwnProperty('host')) {
@@ -48,8 +50,8 @@ router.post('/', (req, res) => {
       message.msgType = 'default'
     }
 
-    eventStore.addEvent(message)
-    res.json(message)
-  })
+    let result = await eventStore.addEvent(message)
+    res.json(result)
+  }))
 
 export default router
