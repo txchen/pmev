@@ -4,6 +4,6 @@ require("babel/register")
 // ES5 code here
 var server = require('./app')
 
-server.listen(6000, function () {
-  console.log('Express server listening http://localhost:6000')
+server.listen(18000, function () {
+  console.log('Express server listening http://localhost:18000')
 })
