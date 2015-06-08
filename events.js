@@ -6,10 +6,16 @@ import passportHttp from 'passport-http'
 import passport from 'passport'
 import eventStore from './event-store'
 
+let api_user = process.env.API_USER
+let api_pass = process.env.API_PASS
+
+if (!api_user || !api_pass) {
+  throw new Error('must define api_user and api_pass in environment')
+}
+
 passport.use(new passportHttp.BasicStrategy(
   (user, pass, done) => {
-    // TODO: use config
-    if (user === 'abc' && pass === 'cde') {
+    if (user === api_user && pass === api_pass) {
       return done(null, user)
     } else {
       return done(null, false)
@@ -32,7 +38,7 @@ router.get('/', (req, res) => {
   })
 
 router.post('/', (req, res) => {
-    // event - id:timestamp(server generate), host:string, message:string, msgType:string, other attributes
+    // event - host:string, message:string, msgType:string, other attributes
     let message = req.body
     if (!message.hasOwnProperty('host')) {
       res.status(400).send('must have host information');
@@ -41,7 +47,6 @@ router.post('/', (req, res) => {
     if (!message.hasOwnProperty('msgType')) {
       message.msgType = 'default'
     }
-    message.id = (new Date).getTime()
 
     eventStore.addEvent(message)
     res.json(message)

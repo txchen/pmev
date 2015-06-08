@@ -4,8 +4,8 @@
   "description": "Poor man's event viewer",
   "main": "index.js",
   "scripts": {
-    "run": "node ./index.js",
-    "watch": "nodemon -V --watch . -e js ./index.js"
+    "server": "foreman start",
+    "watch": "foreman run nodemon index.js"
   },
   "repository": {
     "type": "git",
