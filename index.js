@@ -4,6 +4,10 @@ require("babel/register")
 // ES5 code here
 var server = require('./app')
 
-server.listen(18000, function () {
-  console.log('Express server listening http://localhost:18000')
+server.set('port', (process.env.PORT || 18000));
+
+var port = server.get('port')
+
+server.listen(port, function () {
+  console.log('Express server listening http://localhost:' + port)
 })
