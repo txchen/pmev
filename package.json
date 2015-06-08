@@ -29,10 +29,10 @@
     "passport": "^0.2.2",
     "passport-github2": "^0.1.9",
     "passport-http": "^0.2.2",
+    "babel": "^5.5.4",
     "wga": "^0.5.4"
   },
   "devDependencies": {
-    "babel": "^5.5.4",
     "nodemon": "^1.3.7"
   }
 }
