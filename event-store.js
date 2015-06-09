@@ -14,15 +14,19 @@ let parse_headers = {
 }
 
 export default {
-  async getEvents(limit = 200) {
-    var response = await fetch(parse_url, {
+  async getEvents(querystring) {
+    let url = parse_url
+    if (querystring) {
+      url += '?' + querystring
+    }
+    let response = await fetch(url, {
       headers: parse_headers
     })
     return await response.json()
   },
 
   async addEvent(eventData) {
-    var response = await fetch(parse_url, {
+    let response = await fetch(parse_url, {
       method: 'POST',
       headers: parse_headers,
       body: JSON.stringify(eventData)

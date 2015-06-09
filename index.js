@@ -7,7 +7,6 @@ var server = require('./app')
 server.set('port', (process.env.PORT || 18000));
 
 var port = server.get('port')
-
 server.listen(port, function () {
-  console.log('Express server listening http://localhost:' + port)
+  console.log('PMEV listening on http://localhost:' + port)
 })

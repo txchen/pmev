@@ -1,5 +1,6 @@
 'use strict'
 
+import qs from 'querystring'
 import express from 'express'
 import wga from 'wga'
 import bodyParser from 'body-parser'
@@ -14,36 +15,30 @@ if (!api_user) {
 let router = express.Router()
 
 router.use((req, res, next) => {
-  function unauthorized(res) {
+  let user = basicAuth(req)
+  if (!user || !user.name || user.name !== api_user) {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
     return res.sendStatus(401)
   }
-  let user = basicAuth(req)
-  if (!user || !user.name) {
-    return unauthorized(res)
-  }
-
-  if (user.name === api_user) {
-    return next()
-  } else {
-    return unauthorized(res)
-  }
+  return next()
 })
 
 // parse body as json or urlencoded
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }))
 
-// TODO: pagination support
 router.get('/', wga(async (req, res) => {
-  res.json(await eventStore.getEvents())
+  // pass through the query string to parse api
+  // like: ?limit=20&skip=30
+  res.json(await eventStore.getEvents(qs.stringify(req.query)))
 }))
 
 router.post('/', wga(async (req, res) => {
   // event - host:string, message:string, msgType:string, other attributes
   let message = req.body
   if (!message.hasOwnProperty('host')) {
-    res.status(400).send('must have host information');
+    res.status(400).send('must have host information')
+    return
   }
 
   if (!message.hasOwnProperty('msgType')) {
