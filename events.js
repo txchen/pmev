@@ -14,6 +14,7 @@ if (!api_user) {
 
 let router = express.Router()
 
+// TODO: allow jwt as well
 router.use((req, res, next) => {
   let user = basicAuth(req)
   if (!user || !user.name || user.name !== api_user) {

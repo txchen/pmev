@@ -8,7 +8,7 @@ let app = express()
 app.use(logger('dev'))
 
 
-//app.use('/static', staticServer)
+app.use('/', express.static('static'))
 
 // app.use('/api', (req, res) => {
 //   res.send('api')
@@ -26,8 +26,12 @@ app.use('/events', events)
 
 // error handling, should be after normal middleware
 app.use(function(err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Internal Error')
+  if (err.status) {
+    res.status(err.status).send(err.statusText)
+  } else {
+    console.error(err.stack)
+    res.status(500).send('Internal Error')
+  }
 })
 
 export default app

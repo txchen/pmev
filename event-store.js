@@ -13,6 +13,13 @@ let parse_headers = {
   'X-Parse-REST-API-Key': parse_restkey
 }
 
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  }
+  throw { status: response.status, statusText: 'database error: ' + response.statusText }
+}
+
 export default {
   async getEvents(querystring) {
     let url = parse_url
@@ -22,6 +29,7 @@ export default {
     let response = await fetch(url, {
       headers: parse_headers
     })
+    checkStatus(response)
     return await response.json()
   },
 
@@ -31,6 +39,7 @@ export default {
       headers: parse_headers,
       body: JSON.stringify(eventData)
     })
+    checkStatus(response)
     return await response.json()
   }
 }
