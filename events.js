@@ -13,11 +13,12 @@ if (!api_user) {
   throw new Error('must define api_user in environment')
 }
 let jwt_allowed_email = process.env.JWT_ALLOWED_EMAIL || 'default@pmev.com'
+let jwt_secret = process.env.JWT_SECRET
 
 let router = express.Router()
 
 // parse authorization header as jwt first
-router.use(jwt({ secret: 'mysecret' }))
+router.use(jwt({ secret: jwt_secret }))
 
 router.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') { // if jwt is not available, check basic auth as fallback

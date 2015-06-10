@@ -3,4 +3,5 @@ API_USER=u
 PARSE_APPID=xxx
 PARSE_RESTKEY=yyy
 
+JWT_SECRET=mysecret
 JWT_ALLOWED_EMAIL=some@email.com
