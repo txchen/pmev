@@ -3,6 +3,7 @@
 import qs from 'querystring'
 import express from 'express'
 import wga from 'wga'
+import jwt from 'express-jwt'
 import bodyParser from 'body-parser'
 import basicAuth from 'basic-auth'
 import eventStore from './event-store'
@@ -11,17 +12,31 @@ let api_user = process.env.API_USER
 if (!api_user) {
   throw new Error('must define api_user in environment')
 }
+let jwt_allowed_email = process.env.JWT_ALLOWED_EMAIL || 'default@pmev.com'
 
 let router = express.Router()
 
-// TODO: allow jwt as well
-router.use((req, res, next) => {
-  let user = basicAuth(req)
-  if (!user || !user.name || user.name !== api_user) {
-    res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
-    return res.sendStatus(401)
+// parse authorization header as jwt first
+router.use(jwt({ secret: 'mysecret' }))
+
+router.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') { // if jwt is not available, check basic auth as fallback
+    let user = basicAuth(req)
+    if (!user || !user.name || user.name !== api_user) {
+      res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
+      return res.sendStatus(401)
+    }
+    req.basicAuth = true
+    return next()
   }
-  return next()
+})
+
+router.use((req, res, next) => {
+  if (req.basicAuth || req.user.email === jwt_allowed_email) {
+    return next()
+  } else {
+    return res.status(401).send('user in jwt not allowed')
+  }
 })
 
 // parse body as json or urlencoded
