@@ -5,3 +5,6 @@ PARSE_RESTKEY=yyy
 
 JWT_SECRET=mysecret
 JWT_ALLOWED_EMAIL=some@email.com
+
+GOOGLE_API_CLIENT_ID=client_id
+GOOGLE_API_CLIENT_SECRET=client_secret

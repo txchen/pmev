@@ -6,6 +6,7 @@ import wga from 'wga'
 import jwt from 'express-jwt'
 import bodyParser from 'body-parser'
 import basicAuth from 'basic-auth'
+
 import eventStore from './event-store'
 
 let api_user = process.env.API_USER

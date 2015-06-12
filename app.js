@@ -1,12 +1,17 @@
+'use strict'
+
 import express from 'express'
 import logger from 'morgan'
 import wga from 'wga'
+
 import events from './events'
+import googleauth from './googleauth'
 
 let app = express()
 app.use(logger('dev'))
 
 app.use('/', express.static('static'))
+app.use('/auth', googleauth)
 app.use('/events', events)
 
 // error handling, should be after normal middleware
