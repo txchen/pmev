@@ -8,6 +8,7 @@ import events from './events'
 import googleauth from './googleauth'
 
 let app = express()
+app.set('trust proxy', true)
 app.use(logger('dev'))
 
 app.use('/', express.static('static'))
