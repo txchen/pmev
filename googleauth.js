@@ -15,7 +15,6 @@ let router = express.Router()
 
 router.get('/google/login', (req, res) => {
   let callback_uri = req.protocol + '://' + req.get('host') + req.baseUrl + '/google/callback'
-  console.log(callback_uri)
   let query_params = {
     scope: 'email',
     redirect_uri: callback_uri,

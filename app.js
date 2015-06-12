@@ -8,7 +8,7 @@ import events from './events'
 import googleauth from './googleauth'
 
 let app = express()
-app.set('trust proxy', true)
+app.set('trust proxy', true) // set trust proxy, otherwise req.protocol is not precise
 app.use(logger('dev'))
 
 app.use('/', express.static('static'))
