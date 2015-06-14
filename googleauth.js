@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken'
 
 let google_client_id = process.env.GOOGLE_API_CLIENT_ID
 let google_client_secret = process.env.GOOGLE_API_CLIENT_SECRET
-let allowed_email = process.env.JWT_ALLOWED_EMAIL
 let jwt_secret = process.env.JWT_SECRET
 
 let router = express.Router()
@@ -53,12 +52,10 @@ router.get('/google/callback', wga(async (req, res) => {
   } else {
     // extract email from id_token, and issue jwt_token, field = email
     let decoded = jwt.decode(tokenInfo.id_token)
-    if (decoded.email === allowed_email) {
-      // sign jwt and set cookie
-      let token = jwt.sign({ email: allowed_email }, jwt_secret, { expiresInMinutes: 60 })
-      console.log('issue jwt: ' + token)
-      res.cookie('jwt', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
-    }
+    // sign jwt and set cookie, api will check the email later, here just go ahead and issue token
+    let token = jwt.sign({ email: decoded.email }, jwt_secret, { expiresInMinutes: 60 })
+    console.log('issue jwt: ' + token)
+    res.cookie('jwt', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
   }
   res.redirect('/')
 }))

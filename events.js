@@ -3,9 +3,10 @@
 import qs from 'querystring'
 import express from 'express'
 import wga from 'wga'
-import jwt from 'express-jwt'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import basicAuth from 'basic-auth'
+import jwt from 'jsonwebtoken'
 
 import eventStore from './event-store'
 
@@ -18,32 +19,31 @@ let jwt_secret = process.env.JWT_SECRET
 
 let router = express.Router()
 
-// parse authorization header as jwt first
-router.use(jwt({ secret: jwt_secret }))
+// parse body as json
+router.use(bodyParser.json())
+router.use(cookieParser())
 
-router.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') { // if jwt is not available, check basic auth as fallback
+router.use((req, res, next) => {
+  // check jwt in cookie first
+  if (req.cookies.jwt) {
+    try {
+      let decoded = jwt.verify(req.cookies.jwt, jwt_secret)
+      if (decoded.email !== jwt_allowed_email) {
+        throw new Error('email in token: "' + decoded.email + '" is not allowed, please check the configuration')
+      }
+      return next()
+    } catch(err) {
+      return res.status(401).send('jwt verification failed: ' + err)
+    }
+  } else { // or check basic auth
     let user = basicAuth(req)
     if (!user || !user.name || user.name !== api_user) {
       res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
       return res.sendStatus(401)
     }
-    req.basicAuth = true
     return next()
   }
 })
-
-router.use((req, res, next) => {
-  if (req.basicAuth || req.user.email === jwt_allowed_email) {
-    return next()
-  } else {
-    return res.status(401).send('user in jwt not allowed')
-  }
-})
-
-// parse body as json or urlencoded
-router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({ extended: true }))
 
 router.get('/', wga(async (req, res) => {
   // pass through the query string to parse api
