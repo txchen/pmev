@@ -24,8 +24,13 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
   ],
+  devtool: "source-map",
   devServer: {
-    port: 5555
-  },
-  devtool: "source-map"
+    port: 18000,
+    inline: true,
+    contentBase: "static",
+    proxy: {
+      '/*': 'http://localhost:17000/'
+    }
+  }
 }

@@ -4,10 +4,9 @@
   "description": "Poor man's event viewer",
   "main": "index.js",
   "scripts": {
-    "staticdev": "webpack-dev-server --content-base static/",
-    "staticdist": "webpack -p -d",
+    "dist": "webpack -p -d",
     "start": "foreman start",
-    "watch": "foreman run nodemon index.js"
+    "dev": "foreman run nodemon index.js & webpack-dev-server"
   },
   "repository": {
     "type": "git",
