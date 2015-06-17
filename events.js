@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import basicAuth from 'basic-auth'
 import jwt from 'jsonwebtoken'
+import moment from 'moment'
 
 import eventStore from './event-store'
 
@@ -50,7 +51,13 @@ router.use((req, res, next) => {
 router.get('/', wga(async (req, res) => {
   // pass through the query string to parse api
   // like: ?limit=20&skip=30
-  res.json(await eventStore.getEvents(qs.stringify(req.query)))
+  let data = await eventStore.getEvents(qs.stringify(req.query))
+  data.results.forEach(e => {
+    let mmt = moment(e.createdAt)
+    e.eventTime = mmt.format('YYYYMMDD HH:mm:ss')
+    e.day = mmt.format('ddd')
+  })
+  res.json(data)
 }))
 
 router.post('/', wga(async (req, res) => {

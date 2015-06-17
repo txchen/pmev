@@ -1,4 +1,4 @@
-#@ PMEV - Poor man's event viewer
+# PMEV - Poor man's event viewer
 
 Design for collecting some random personal events, like the ones from NAS.
 

@@ -1,6 +1,6 @@
 <app>
-  <div class="container">
-    <div class="row">
+  <div class="container fullHeight">
+    <div class="row headerRow">
       <div class="one-half column">
         <span>Page size:</span>
         <select name="pageSize" onchange={ pageSizeChanged }>
@@ -20,9 +20,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <p if={ _error }>{ _error }</p>
+    <div class="row eventView">
+      <p if={ _error } class="error">{ _error }</p>
       <table class="u-full-width">
+        <col width="180">
+        <col width="150">
+        <col width="150">
         <thead>
           <tr>
             <th>Time</th>
@@ -33,7 +36,7 @@
         </thead>
         <tbody>
           <tr each={ _pEvents }>
-            <td>{ createdAt }</td>
+            <td title={ day }>{ eventTime }</td>
             <td>{ host }</td>
             <td>{ msgType }</td>
             <td>{ message }</td>
@@ -43,9 +46,19 @@
     </div>
   </div>
 
+  <style scoped>
+  .headerRow { padding: 5px; }
+  .error { color: red; }
+  .fullHeight { height: 100%; }
+  .eventView { overflow-y: scroll; height: calc(100% - 64px); }
+  tbody tr:nth-child(even) { background:#ECF0F1; }
+  tbody tr:hover { background:#BDC3C7; color:#FFFFFF; }
+  th:first-child, td:first-child { padding-left: 5px; }
+  </style>
+
   <script type="es6">
   import request from 'superagent/lib/client'
-  
+
   this._pEvents = []
   this._currentPage = 1
   this._pageSize = 20
@@ -76,7 +89,7 @@
   })
 
   this.loadEvents = () => {
-    let url = '/events?limit=' + this._pageSize
+    let url = '/events?order=-createdAt&limit=' + this._pageSize
     let skip = this._pageSize * (this._currentPage - 1)
     url += '&skip=' + skip
 

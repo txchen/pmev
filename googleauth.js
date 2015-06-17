@@ -53,9 +53,9 @@ router.get('/google/callback', wga(async (req, res) => {
     // extract email from id_token, and issue jwt_token, field = email
     let decoded = jwt.decode(tokenInfo.id_token)
     // sign jwt and set cookie, api will check the email later, here just go ahead and issue token
-    let token = jwt.sign({ email: decoded.email }, jwt_secret, { expiresInMinutes: 60 })
+    let token = jwt.sign({ email: decoded.email }, jwt_secret, { expiresInMinutes: 120 })
     console.log('issue jwt: ' + token)
-    res.cookie('jwt', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
+    res.cookie('jwt', token, { expires: new Date(Date.now() + 7200000), httpOnly: true })
   }
   res.redirect('/')
 }))
