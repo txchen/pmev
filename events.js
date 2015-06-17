@@ -23,6 +23,7 @@ let router = express.Router()
 router.use(bodyParser.json())
 router.use(cookieParser())
 
+// authentication
 router.use((req, res, next) => {
   // check jwt in cookie first
   if (req.cookies.jwt) {
@@ -38,7 +39,8 @@ router.use((req, res, next) => {
   } else { // or check basic auth
     let user = basicAuth(req)
     if (!user || !user.name || user.name !== api_user) {
-      res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
+      // cannot set basicauth header, otherwise browser will popup dialog
+      //res.set('WWW-Authenticate', 'Basic realm=Authorization Required')
       return res.sendStatus(401)
     }
     return next()

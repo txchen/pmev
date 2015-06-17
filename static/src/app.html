@@ -2,15 +2,6 @@
   <div class="container">
     <div class="row">
       <div class="one-half column">
-        <p>Hello User</p>
-      </div>
-      <div class="one-half column">
-        <a class="button u-pull-right" href="auth/google/login">Login</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="one-half column">
         <span>Page size:</span>
         <select name="pageSize" onchange={ pageSizeChanged }>
           <option value="20">20</option>
@@ -24,7 +15,8 @@
         <span>|</span>
         <span>Current Page: { _currentPage }</span>
       </div>
-      <div class="u-pull-right">
+      <div class="one-half column">
+        <a class="button u-pull-right" href="auth/google/login">Login</a>
       </div>
     </div>
 
@@ -33,24 +25,18 @@
       <table class="u-full-width">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Sex</th>
-            <th>Location</th>
+            <th>Time</th>
+            <th>Host</th>
+            <th>Type</th>
+            <th>Message</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Dave Gamache</td>
-            <td>26</td>
-            <td>Male</td>
-            <td>San Francisco</td>
-          </tr>
-          <tr>
-            <td>Dwayne Johnson</td>
-            <td>42</td>
-            <td>Male</td>
-            <td>Hayward</td>
+          <tr each={ _pEvents }>
+            <td>{ createdAt }</td>
+            <td>{ host }</td>
+            <td>{ msgType }</td>
+            <td>{ message }</td>
           </tr>
         </tbody>
       </table>
@@ -58,31 +44,53 @@
   </div>
 
   <script type="es6">
-  var request = require('superagent/lib/client')
+  import request from 'superagent/lib/client'
+  
   this._pEvents = []
   this._currentPage = 1
   this._pageSize = 20
   this._error = null
 
   this.pageSizeChanged = (e) => {
+    let oldSize = this._pageSize
     this._pageSize = parseInt(e.target.value)
+    if (oldSize != this._pageSize) {
+      this.loadEvents()
+    }
   }
 
   this.gotoPreviousPage = () => {
     if (this._currentPage > 1) {
       this._currentPage--
+      this.loadEvents()
     }
   }
 
   this.gotoNextPage = () => {
     this._currentPage++
+    this.loadEvents()
   }
 
-  this.on('update', () => {
-    console.log('updated')
-    request.get('/events').end((err, res) => {
-      console.log(res)
-    })
+  this.on('mount', () => {
+    this.loadEvents()
   })
+
+  this.loadEvents = () => {
+    let url = '/events?limit=' + this._pageSize
+    let skip = this._pageSize * (this._currentPage - 1)
+    url += '&skip=' + skip
+
+    request.get(url).end((err, res) => {
+      if (err) {
+        this._error = 'Failed to get events, you might need to login. ' + err
+        if (res.text) {
+          this._error += ' | Error description: ' + res.text
+        }
+      } else {
+        this._pEvents = res.body.results
+      }
+      this.update()
+    })
+  }
   </script>
 </app>
