@@ -13,7 +13,6 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.css$/, include: /static\/src/, loader: 'style!css' },
       { test: /\.html$/, include: /static\/src/, loader: 'riotjs' },
       { test: /\.js$/, include: /static\/src/, loader: 'babel', query: {modules: 'common'} }
     ]

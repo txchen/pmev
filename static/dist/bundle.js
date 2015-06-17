@@ -1,8 +1,8 @@
 webpackJsonp([1],[/*!*****************************!*\
   !*** ./static/src/index.js ***!
   \*****************************/
-function(t,e,n){(function(t){"use strict";n(/*! ./app.html */2),t.mount("app")}).call(e,n(/*! riot */1))},,/*!*****************************!*\
+function(t,e,n){(function(t){"use strict";n(/*! ./app.html */3),t.mount("app")}).call(e,n(/*! riot */1))},,,/*!*****************************!*\
   !*** ./static/src/app.html ***!
   \*****************************/
-function(t,e,n){(function(t){t.tag("app",'<div>test</div> <a href="auth/google/login">Login</a>',function(t){})}).call(e,n(/*! riot */1))}]);
+function(t,e,n){(function(t){t.tag("app",'<div class="container"> <div class="row"> <div class="one-half column"> <p>Hello User</p> </div> <div class="one-half column"> <a class="button u-pull-right" href="auth/google/login">Login</a> </div> </div> <div class="row"> <div class="one-half column"> <span>Page size:</span> <select name="pageSize" onchange="{ pageSizeChanged }"> <option value="20">20</option> <option value="30">30</option> <option value="50">50</option> <option value="100">100</option> </select> <span>|</span> <a href="#" onclick="{ gotoPreviousPage }">Prev</a> <a href="#" onclick="{ gotoNextPage }">Next</a> <span>|</span> <span>Current Page: { _currentPage }</span> </div> <div class="u-pull-right"> </div> </div> <div class="row"> <p if="{ _error }">{ _error }</p> <table class="u-full-width"> <thead> <tr> <th>Name</th> <th>Age</th> <th>Sex</th> <th>Location</th> </tr> </thead> <tbody> <tr> <td>Dave Gamache</td> <td>26</td> <td>Male</td> <td>San Francisco</td> </tr> <tr> <td>Dwayne Johnson</td> <td>42</td> <td>Male</td> <td>Hayward</td> </tr> </tbody> </table> </div> </div>',function(t){var e=this;n(/*! superagent/lib/client */2);this._pEvents=[],this._currentPage=1,this._pageSize=20,this._error=null,this.pageSizeChanged=function(t){e._pageSize=parseInt(t.target.value)},this.gotoPreviousPage=function(){e._currentPage>1&&e._currentPage--},this.gotoNextPage=function(){e._currentPage++},this.on("update",function(){console.log("updated")})})}).call(e,n(/*! riot */1))}]);
 //# sourceMappingURL=bundle.js.map
