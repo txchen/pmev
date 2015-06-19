@@ -14,6 +14,13 @@ http POST https://floating-cove-6028.herokuapp.com/events \
   host=myhost message=testing -a API_USER:
 ```
 
+To use httpie in cronjob, make sure you add the `--ignore-stdin` option:
+
+```
+http --ignore-stdin POST https://floating-cove-6028.herokuapp.com/events \
+  host=myhost message=testing -a API_USER:
+```
+
 To view the events, browse the web site and login as google account.
 
 ### How to deploy
