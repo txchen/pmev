@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import basicAuth from 'basic-auth'
 import jwt from 'jsonwebtoken'
 import moment from 'moment'
+import tz from 'moment-timezone'
 
 import eventStore from './event-store'
 
@@ -54,8 +55,8 @@ router.get('/', wga(async (req, res) => {
   let data = await eventStore.getEvents(qs.stringify(req.query))
   data.results.forEach(e => {
     let mmt = moment(e.createdAt)
-    e.eventTime = mmt.format('YYYYMMDD HH:mm:ss')
-    e.day = mmt.format('ddd')
+    e.eventTime = mmt.tz('America/Los_Angeles').format('YYYYMMDD HH:mm:ss')
+    e.day = mmt.tz('America/Los_Angeles').format('ddd')
   })
   res.json(data)
 }))
