@@ -6,8 +6,8 @@
   "scripts": {
     "dist": "webpack -p -d",
     "start": "node index.js",
-    "localstart": "foreman start -p 18000",
-    "dev": "foreman run nodemon index.js & webpack-dev-server"
+    "local": "PORT=18000 node index.js",
+    "dev": "nodemon index.js & webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "basic-auth": "^1.0.1",
     "body-parser": "^1.12.4",
     "cookie-parser": "^1.3.5",
+    "dotenv": "^1.2.0",
     "express": "^4.12.4",
     "jsonwebtoken": "^5.0.1",
     "moment": "^2.10.3",

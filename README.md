@@ -2,22 +2,22 @@
 
 Design for collecting some random personal events, like the ones from NAS.
 
-This is a nodejs app that takes events and shows in html. It uses Parse as the storage layer and it can be hosted on heroku.
+This is a nodejs app that takes events and shows in html. It uses Parse as the storage layer and it can be hosted on azure.
 
 ### How to use
 
-https://floating-cove-6028.herokuapp.com
+https://pmev.azurewebsites.net/#
 
 To post new event, use basic auth and http POST:
 ```
-http POST https://floating-cove-6028.herokuapp.com/events \
+http POST https://pmev.azurewebsites.net/events \
   host=myhost message=testing -a API_USER:
 ```
 
 To use httpie in cronjob, make sure you add the `--ignore-stdin` option:
 
 ```
-http --ignore-stdin POST https://floating-cove-6028.herokuapp.com/events \
+http --ignore-stdin POST https://pmev.azurewebsites.net/events \
   host=myhost message=testing -a API_USER:
 ```
 
@@ -29,13 +29,9 @@ Firstly, create a google api account, enable google+ and contact API in the cons
 
 Then, create a Parse.com account, create a project, get the ParseAPPID and REST API KEY.
 
-Finally, create a heroku account, download heroku toolbet. In heroku dashboard, set the variables. And trigger the deployment:
+Finally, create an azure account, setup azure webapp, hook up with github repository.
 
-```
-git push heroku master
-```
-
-Follow `.envSample` to config the variables in heroku
+Follow `.envSample` to config the variables in azure webapp.
 
 ### How to develop
 
