@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dist": "webpack -p -d",
-    "start": "foreman start -p 18000",
+    "start": "node index.js",
+    "localstart": "foreman start -p 18000",
     "dev": "foreman run nodemon index.js & webpack-dev-server"
   },
   "repository": {
