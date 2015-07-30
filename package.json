@@ -7,7 +7,7 @@
     "dist": "webpack -p -d",
     "start": "node index.js",
     "local": "PORT=18000 node index.js",
-    "lint": "eslint static/dist *.js static",
+    "lint": "eslint *.js static",
     "dev": "nodemon index.js & webpack-dev-server"
   },
   "repository": {
