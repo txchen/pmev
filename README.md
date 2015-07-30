@@ -6,18 +6,18 @@ This is a nodejs app that takes events and shows in html. It uses Parse as the s
 
 ### How to use
 
-https://pmev.azurewebsites.net/#
+https://mypmev.azurewebsites.net/
 
 To post new event, use basic auth and http POST:
 ```
-http POST https://pmev.azurewebsites.net/events \
+http POST https://mypmev.azurewebsites.net/events \
   host=myhost message=testing -a API_USER:
 ```
 
 To use httpie in cronjob, make sure you add the `--ignore-stdin` option:
 
 ```
-http --ignore-stdin POST https://pmev.azurewebsites.net/events \
+http --ignore-stdin POST https://mypmev.azurewebsites.net/events \
   host=myhost message=testing -a API_USER:
 ```
 
