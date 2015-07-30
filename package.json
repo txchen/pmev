@@ -7,6 +7,7 @@
     "dist": "webpack -p -d",
     "start": "node index.js",
     "local": "PORT=18000 node index.js",
+    "lint": "eslint static/dist *.js static",
     "dev": "nodemon index.js & webpack-dev-server"
   },
   "repository": {
@@ -46,6 +47,8 @@
     "wga": "^0.5.4"
   },
   "devDependencies": {
+    "babel-eslint": "^4.0.5",
+    "eslint": "^0.24.1",
     "nodemon": "^1.3.7"
   }
 }
