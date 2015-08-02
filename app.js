@@ -20,8 +20,9 @@ app.use('/', express.static('static'))
 app.use('/auth', googleauth)
 app.use('/events', events)
 
+/* eslint no-unused-vars: 0 */
 // error handling, should be after normal middleware
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   if (err.status) {
     res.status(err.status).send(err.statusText)
   } else {
