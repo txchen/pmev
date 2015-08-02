@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import basicAuth from 'basic-auth'
 import jwt from 'jsonwebtoken'
 import moment from 'moment'
-/*eslint no-unused-vars: 0*/
+/* eslint no-unused-vars: 0 */
 import tz from 'moment-timezone'
 import eventStore from './event-store'
 

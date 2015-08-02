@@ -1,4 +1,4 @@
-/*eslint-disable */
+/* eslint-disable */
 
 // entry point, do not use babel syntax here in this file, so that 'node' can launch this.
 require('babel/register')

@@ -15,7 +15,7 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response
   }
-  throw { status: response.status, statusText: 'database error: ' + response.statusText }
+  throw new Error(`status $(response.status), database error: $(response.statusText)`)
 }
 
 export default {

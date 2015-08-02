@@ -1,4 +1,4 @@
-/*global riot*/
+/* global riot */
 // riot tags
 import './app.html'
 
