@@ -47,9 +47,9 @@
     "wga": "^0.5.4"
   },
   "devDependencies": {
+    "babel-eslint": "^4.0.5",
     "eslint": "^1.0.0",
-    "eslint-config-airbnb": "0.0.7",
-    "eslint-plugin-react": "^3.1.0",
+    "eslint-config-airbnb-lite": "^1.0.2",
     "nodemon": "^1.4.0"
   }
 }
