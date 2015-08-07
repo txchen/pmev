@@ -65,9 +65,9 @@
   this._error = null
 
   this.pageSizeChanged = (e) => {
-    let oldSize = this._pageSize
-    this._pageSize = parseInt(e.target.value)
-    if (oldSize != this._pageSize) {
+    const oldSize = this._pageSize
+    this._pageSize = parseInt(e.target.value, 10)
+    if (oldSize !== this._pageSize) {
       this.loadEvents()
     }
   }
@@ -90,7 +90,7 @@
 
   this.loadEvents = () => {
     let url = '/events?order=-createdAt&limit=' + this._pageSize
-    let skip = this._pageSize * (this._currentPage - 1)
+    const skip = this._pageSize * (this._currentPage - 1)
     url += '&skip=' + skip
 
     request.get(url).end((err, res) => {

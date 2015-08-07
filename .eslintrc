@@ -1,5 +1,6 @@
 {
   "extends": "eslint-config-airbnb-lite",
+  "plugins": ["riot"],
   "rules" : {
     "semi": [2, "never"],
   }

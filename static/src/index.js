@@ -1,5 +1,5 @@
 /* global riot */
 // riot tags
-import './app.html'
+import './app.tag.html'
 
 riot.mount('app')

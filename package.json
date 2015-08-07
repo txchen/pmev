@@ -7,7 +7,7 @@
     "dist": "webpack -p -d",
     "start": "node index.js",
     "local": "PORT=18000 node index.js",
-    "lint": "eslint *.js static",
+    "lint": "eslint *.js static/src/*",
     "dev": "nodemon index.js & webpack-dev-server"
   },
   "repository": {
@@ -50,6 +50,7 @@
     "babel-eslint": "^4.0.5",
     "eslint": "^1.0.0",
     "eslint-config-airbnb-lite": "^1.0.2",
+    "eslint-plugin-riot": "0.0.2",
     "nodemon": "^1.4.0"
   }
 }

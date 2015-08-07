@@ -1,3 +1,4 @@
+/* eslint no-var: 0 */
 var webpack = require('webpack')
 
 module.exports = {
@@ -9,27 +10,27 @@ module.exports = {
   output: {
     path: './static/dist/',
     publicPath: '/dist/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
-      { test: /\.html$/, include: /static\/src/, loader: 'riotjs' },
-      { test: /\.js$/, include: /static\/src/, loader: 'babel', query: {modules: 'common'} }
-    ]
+      { test: /\.tag\.html$/, include: /static\/src/, loader: 'riotjs' },
+      { test: /\.js$/, include: /static\/src/, loader: 'babel', query: {modules: 'common'} },
+    ],
   },
   plugins: [
     new webpack.ProvidePlugin({
-      riot: 'riot'
+      riot: 'riot',
     }),
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.bundle.js'),
   ],
-  devtool: "source-map",
+  devtool: 'source-map',
   devServer: {
     port: 18000,
     inline: true,
-    contentBase: "static",
+    contentBase: 'static',
     proxy: {
-      '/*': 'http://localhost:17000/'
-    }
-  }
+      '/*': 'http://localhost:17000/',
+    },
+  },
 }
