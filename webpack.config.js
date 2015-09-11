@@ -4,8 +4,8 @@ var webpack = require('webpack')
 module.exports = {
   cache: true,
   entry: {
-    app: './static/src/index.js',
-    vendor: './static/src/vendor.js',
+    app: './static/src/index.es6',
+    vendor: './static/src/vendor.es6',
   },
   output: {
     path: './static/dist/',
@@ -15,7 +15,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.tag\.html$/, include: /static\/src/, loader: 'riotjs' },
-      { test: /\.js$/, include: /static\/src/, loader: 'babel', query: {modules: 'common'} },
+      { test: /\.es6$/, include: /static\/src/, loader: 'babel', query: {modules: 'common'} },
     ],
   },
   plugins: [
