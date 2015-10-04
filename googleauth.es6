@@ -1,7 +1,7 @@
 import express from 'express'
 import qs from 'querystring'
 import fetch from 'node-fetch'
-import wga from 'wga'
+import awrap from 'awrap'
 import jwt from 'jsonwebtoken'
 
 const googleClientId = process.env.GOOGLE_API_CLIENT_ID
@@ -21,7 +21,7 @@ router.get('/google/login', (req, res) => {
   res.redirect('http://accounts.google.com/o/oauth2/auth?' + qs.stringify(queryParams))
 })
 
-router.get('/google/callback', wga(async (req, res) => {
+router.get('/google/callback', awrap(async (req, res) => {
   // get the code and exchange for access token
   const code = req.query.code
   if (!code) {

@@ -1,6 +1,6 @@
 import qs from 'querystring'
 import express from 'express'
-import wga from 'wga'
+import awrap from 'awrap'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import basicAuth from 'basic-auth'
@@ -47,7 +47,7 @@ router.use((req, res, next) => {
   }
 })
 
-router.get('/', wga(async (req, res) => {
+router.get('/', awrap(async (req, res) => {
   // pass through the query string to parse api
   // like: ?limit=20&skip=30
   const data = await eventStore.getEvents(qs.stringify(req.query))
@@ -59,7 +59,7 @@ router.get('/', wga(async (req, res) => {
   res.json(data)
 }))
 
-router.post('/', wga(async (req, res) => {
+router.post('/', awrap(async (req, res) => {
   // event - host:string, message:string, msgType:string, other attributes
   const message = req.body
   if (!message.hasOwnProperty('host')) {
